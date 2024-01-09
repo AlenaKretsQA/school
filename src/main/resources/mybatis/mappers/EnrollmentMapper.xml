@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.IEnrollmentDAO">
+
+    <insert id="create">
+        INSERT INTO enrollments (id, enrollment_date, student_id, course_id) VALUES (#{enrollmentId}, #{enrollment.enrollmentDate}, #{enrollment.studentId}, #{enrollment.courseId})
+    </insert>
+
+    <select id="getAllEnrollmentsByStudentId" resultMap="EnrollmentResult">
+        SELECT
+        e.id AS enrollment_id,
+        e.enrollment_date,
+        e.course_id,
+        s.id AS student_id,
+        s.first_name AS student_first_name,
+        s.last_name AS student_last_name,
+        s.birthdate AS student_birthdate
+        FROM enrollments e
+        JOIN students s ON e.student_id = s.id
+        WHERE s.id = #{studentId}
+    </select>
+
+    <update id="update">
+        UPDATE enrollments SET enrollment_date = #{enrollment.enrollmentDate}, student_id = #{enrollment.studentId}, course_id = #{enrollment.courseId} WHERE id = #{enrollment.id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM enrollments WHERE id = #{id}
+    </delete>
+
+    <select id="getById" resultMap="EnrollmentResult">
+        SELECT
+        e.id AS enrollment_id,
+        e.enrollment_date,
+        e.course_id,
+        s.id AS student_id,
+        s.first_name AS student_first_name,
+        s.last_name AS student_last_name,
+        s.birthdate AS student_birthdate
+        FROM enrollments e
+        JOIN students s ON e.student_id = s.id
+        WHERE e.id = #{id}
+    </select>
+
+    <resultMap id="EnrollmentResult" type="com.solvd.laba.domain.courses.Enrollment" autoMapping="false">
+        <id column="enrollment_id" property="id"/>
+        <result column="enrollment_date" property="enrollmentDate"/>
+        <result column="course_id" property="courseId"/>
+        <association property="student" resultMap="StudentResult"/>
+    </resultMap>
+
+    <resultMap id="StudentResult" type="com.solvd.laba.domain.students.Student" autoMapping="false">
+        <id column="student_id" property="id"/>
+        <result column="student_first_name" property="firstName"/>
+        <result column="student_last_name" property="lastName"/>
+        <result column="student_birthdate" property="birthdate"/>
+
+        <association property="student" javaType="com.solvd.laba.domain.Student">
+            <id column="student_id" property="id"/>
+            <result column="student_first_name" property="firstName"/>
+            <result column="student_last_name" property="lastName"/>
+            <result column="student_birthdate" property="birthdate"/>
+        </association>
+
+        <association property="course" javaType="com.solvd.laba.domain.courses.info.Course">
+            <id column="course_id" property="id"/>
+            <result column="course_name" property="courseName"/>
+            <result column="credits" property="credit"/>
+        </association>
+
+    </resultMap>
+
+</mapper>

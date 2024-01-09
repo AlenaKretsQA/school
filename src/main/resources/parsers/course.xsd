@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="course">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="courseName" type="xs:string"/>
+            <xs:element name="credit" type="xs:double"/>
+            <xs:element name="onlineCourses" type="onlineCourses" minOccurs="0"/>
+            <xs:element name="onsiteCourses" type="onsiteCourses" minOccurs="0"/>
+            <xs:element name="enrollments" type="enrollments" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="onlineCourses">
+        <xs:sequence>
+            <xs:element name="onlineCourse" type="onlineCourse" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="onlineCourse">
+        <xs:sequence>
+            <!-- TODO Define the structure -->
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="onsiteCourses">
+        <xs:sequence>
+            <xs:element name="onsiteCourse" type="onsiteCourse" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="onsiteCourse">
+        <xs:sequence>
+            <!-- TODO Define the structure -->
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="enrollments">
+        <xs:sequence>
+            <xs:element name="enrollment" type="enrollment" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="enrollment">
+        <xs:sequence>
+            <!-- TODO Define the structure -->
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="course" type="course"/>
+
+</xs:schema>
