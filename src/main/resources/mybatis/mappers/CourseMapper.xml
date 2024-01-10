@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.ICourseDAO">
+
+    <select id="getById" resultMap="CourseResult">
+        SELECT
+        c.id AS course_id,
+        c.course_name AS course_name,
+        c.credits AS course_credit,
+        oc.id AS online_course_id,
+        oc.url AS online_course_url,
+        osc.id AS onsite_course_id,
+        osc.room_number AS onsite_course_room_number,
+        osc.date AS onsite_course_date,
+        e.id AS enrollment_id,
+        e.date AS enrollment_date
+        FROM courses c
+        LEFT JOIN online_courses oc ON c.id = oc.course_id
+        LEFT JOIN onsite_courses osc ON c.id = osc.course_id
+        LEFT JOIN enrollments e ON c.id = e.course_id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="CourseResult">
+        SELECT * FROM courses
+    </select>
+
+    <insert id="create">
+        INSERT INTO courses (course_name, credits) VALUES (#{courseName}, #{credit})
+    </insert>
+
+    <update id="update">
+        UPDATE courses SET course_name = #{courseName}, credits = #{credit} WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM courses WHERE id = #{id}
+    </delete>
+
+    <resultMap id="CourseResult" type="com.solvd.laba.domain.courses.Course" autoMapping="false">
+        <id column="course_id" property="id"/>
+        <result column="course_name" property="courseName"/>
+        <result column="course_credit" property="credit"/>
+
+        <!-- Mapping for Online Courses? -->
+        <association property="onlineCourses" resultMap="OnlineCourseResult">
+            <id column="online_course_id" property="id"/>
+            <result column="online_course_url" property="url"/>
+        </association>
+
+        <!-- Mapping for Onsite Courses? -->
+        <association property="onsiteCourses" resultMap="OnsiteCourseResult">
+            <id column="onsite_course_id" property="id"/>
+            <result column="onsite_course_room_number" property="roomNumber"/>
+            <result column="onsite_course_date" property="date"/>
+        </association>
+
+        <!-- Mapping for Enrollments? -->
+        <collection property="enrollments" ofType="com.solvd.laba.domain.courses.Enrollment" resultMap="EnrollmentResult">
+            <id column="enrollment_id" property="id"/>
+            <result column="enrollment_date" property="date"/>
+        </collection>
+    </resultMap>
+
+
+</mapper>
