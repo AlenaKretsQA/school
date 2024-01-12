@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.IOnlineCourseDAO">
+
+    <resultMap id="onlineCourseResultMap" type="com.solvd.laba.domain.courses.info.OnlineCourse">
+        <id property="id" column="online_course_id"/>
+        <result property="url" column="online_course_url"/>
+        <result property="gradeId" column="grade_id"/>
+    </resultMap>
+
+    <select id="getById" resultMap="onlineCourseResultMap">
+        SELECT id AS online_course_id, url, grade_id
+        FROM online_courses
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="onlineCourseResultMap">
+        SELECT id AS online_course_id, url, grade_id
+        FROM online_courses
+    </select>
+
+    <insert id="create" parameterType="com.solvd.laba.domain.courses.info.OnlineCourse">
+        INSERT INTO online_courses (url, grade_id) VALUES (#{url}, #{gradeId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.laba.domain.courses.info.OnlineCourse">
+        UPDATE online_courses SET url = #{url}, grade_id = #{gradeId} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM online_courses WHERE id = #{id}
+    </delete>
+
+</mapper>

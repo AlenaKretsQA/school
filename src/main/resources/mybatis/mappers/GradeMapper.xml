@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.IGradeDAO">
+
+    <resultMap id="gradeResultMap" type="com.solvd.laba.domain.courses.info.Grade">
+        <id property="id" column="grade_id"/>
+        <result property="grade" column="grade"/>
+    </resultMap>
+
+    <select id="getById" resultMap="gradeResultMap">
+        SELECT id AS grade_id, grade
+        FROM grades
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="gradeResultMap">
+        SELECT id AS grade_id, grade
+        FROM grades
+    </select>
+
+    <insert id="create" parameterType="com.solvd.laba.domain.courses.info.Grade">
+        INSERT INTO grades (course_id, grade) VALUES (#{courseId}, #{grade})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.laba.domain.courses.info.Grade">
+        UPDATE grades SET course_id = #{courseId}, grade = #{grade} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM grades WHERE id = #{id}
+    </delete>
+</mapper>

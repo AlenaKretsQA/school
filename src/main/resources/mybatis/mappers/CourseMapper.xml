@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.ICourseDAO">
+
+    <resultMap id="courseResultMap" type="com.solvd.laba.domain.courses.info.Course">
+        <id property="id" column="course_id"/>
+
+        <result property="courseName" column="course_name"/>
+        <result property="credit" column="course_credit"/>
+
+
+        <collection property="enrollments" ofType="com.solvd.laba.domain.courses.Enrollment"
+                    resultMap="EnrollmentResult"/>
+        <collection property="onsiteCourses" ofType="com.solvd.laba.domain.courses.OnsiteCourse"
+                    resultMap="OnsiteCourseResult"/>
+        <collection property="onlineCourses" ofType="com.solvd.laba.domain.courses.OnlineCourse"
+                    resultMap="OnlineCourseResult"/>
+
+    </resultMap>
+
+    <select id="getById" resultMap="CourseResult">
+        SELECT
+        c.id AS course_id,
+        c.course_name AS course_name,
+        c.credits AS course_credit,
+        oc.id AS online_course_id,
+        oc.url AS online_course_url,
+        osc.id AS onsite_course_id,
+        osc.room_number AS onsite_course_room_number,
+        osc.date AS onsite_course_date,
+        e.id AS enrollment_id,
+        e.date AS enrollment_date
+        FROM courses c
+        LEFT JOIN online_courses oc ON c.id = oc.course_id
+        LEFT JOIN onsite_courses osc ON c.id = osc.course_id
+        LEFT JOIN enrollments e ON c.id = e.course_id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="CourseResult">
+        SELECT
+        c.id AS course_id,
+        c.course_name AS course_name,
+        c.credits AS course_credit,
+        oc.id AS online_course_id,
+        oc.url AS online_course_url,
+        osc.id AS onsite_course_id,
+        osc.room_number AS onsite_course_room_number,
+        osc.date AS onsite_course_date,
+        e.id AS enrollment_id,
+        e.date AS e.enrollment_date
+        FROM courses c
+        LEFT JOIN online_courses oc ON c.id = oc.course_id
+        LEFT JOIN onsite_courses osc ON c.id = osc.course_id
+        LEFT JOIN enrollments_e e ON c.id = e.course_id
+    </select>
+
+    <insert id="create">
+        INSERT INTO courses (course_name, credits) VALUES (#{courseName}, #{credit})
+    </insert>
+
+    <update id="update">
+        UPDATE courses SET course_name = #{courseName}, credits = #{credit} WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM courses WHERE id = #{id}
+    </delete>
+
+</mapper>

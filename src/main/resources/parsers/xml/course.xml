@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course xmlns:xsi="http://www.w3.org/2001/XMLSchema" xsi:noNamespaceSchemaLocation="course.xsd">
+    <id>1</id>
+    <courseName>Mathematics</courseName>
+    <credit>6.0</credit>
+
+    <onlineCourses>
+        <onlineCourse>
+            <id>303</id>
+            <url>https://example.com/math101</url>
+            <gradeId> 11</gradeId>
+        </onlineCourse>
+        <onlineCourse>
+            <id>304</id>
+            <url>https://example.com/math102</url>
+            <gradeId> 12</gradeId>
+        </onlineCourse>
+        <onlineCourse>
+            <id>305</id>
+            <url>https://example.com/math103</url>
+            <gradeId> 13</gradeId>
+        </onlineCourse>
+        <onlineCourse>
+            <id>306</id>
+            <url>https://example.com/math104</url>
+            <gradeId> 14</gradeId>
+        </onlineCourse>
+        <onlineCourse>
+            <id>307</id>
+            <url>https://example.com/math105</url>
+            <gradeId> 15</gradeId>
+        </onlineCourse>
+    </onlineCourses>
+    <onsiteCourses>
+        <onsiteCourse>
+            <id>402</id>
+            <roomNumber>103</roomNumber>
+            <date>2023-01-01</date>
+        </onsiteCourse>
+    </onsiteCourses>
+    <attendance>
+        <attendances>
+            <id>2002</id>
+            <status>"Present"</status>
+            <date>2023-01-01</date>
+        </attendances>
+    </attendance>
+
+
+</course>

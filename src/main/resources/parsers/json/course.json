@@ -1,0 +1,50 @@
+{
+  "course": {
+    "id": 1,
+    "courseName": "Mathematics",
+    "credit": 6.0,
+    "onlineCourses": {
+      "onlineCourse": [
+        {
+          "id": 303,
+          "url": "https://example.com/math101",
+          "gradeId": 11
+        },
+        {
+          "id": 304,
+          "url": "https://example.com/math102",
+          "gradeId": 12
+        },
+        {
+          "id": 305,
+          "url": "https://example.com/math103",
+          "gradeId": 13
+        },
+        {
+          "id": 306,
+          "url": "https://example.com/math104",
+          "gradeId": 14
+        },
+        {
+          "id": 307,
+          "url": "https://example.com/math105",
+          "gradeId": 15
+        }
+      ]
+    },
+    "onsiteCourses": {
+      "onsiteCourse": {
+        "id": 402,
+        "roomNumber": "103",
+        "date": "2023-01-01"
+      }
+    },
+    "attendanse": {
+      "attendances": {
+        "id": 2002,
+        "status": "Present",
+        "date": "2023-01-01"
+      }
+    }
+  }
+}

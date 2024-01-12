@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.laba.persistence.courses.IEnrollmentDAO">
+
+    <resultMap id="enrollmentResultMap" type="com.solvd.laba.domain.courses.info.Enrollment">
+        <id property="id" column="enrollment_id"/>
+        <result property="enrollmentDate" column="enrollment_date"/>
+    </resultMap>
+
+
+    <select id="getById" resultMap="enrollmentResultMap">
+        SELECT
+        e.id AS enrollment_id,
+        e.enrollment_date,
+        e.student_id,
+        e.course_id
+        FROM enrollments e
+        WHERE e.id = #{id}
+    </select>
+
+    <select id="getAllEnrollmentsByStudentId" resultMap="enrollmentResultMap">
+        SELECT
+        e.id AS enrollment_id,
+        e.enrollment_date,
+        e.student_id,
+        e.course_id
+        FROM enrollments e
+        WHERE e.student_id = #{studentId}
+    </select>
+
+    <insert id="create" parameterType="com.solvd.laba.domain.courses.info.Enrollment">
+        INSERT INTO enrollments (enrollment_date, student_id, course_id) VALUES (#{enrollmentDate}, #{studentId}, #{courseId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.laba.domain.courses.info.Enrollment">
+        UPDATE enrollments SET enrollment_date = #{enrollmentDate}, student_id = #{studentId}, course_id = #{courseId} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM enrollments WHERE id = #{id}
+    </delete>
+</mapper>

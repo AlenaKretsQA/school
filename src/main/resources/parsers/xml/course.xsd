@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+    <xs:complexType name="onlineCourseType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="url" type="xs:anyURI"/>
+            <xs:element name="gradeId" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="onsiteCourseType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="roomNumber" type="xs:string"/>
+            <xs:element name="date" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="attendanceType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="status" type="xs:string"/>
+            <xs:element name="date" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="onlineCoursesType">
+        <xs:sequence>
+            <xs:element name="onlineCourse" type="onlineCourseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="onsiteCoursesType">
+        <xs:sequence>
+            <xs:element name="onsiteCourse" type="onsiteCourseType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="attendancesType">
+        <xs:sequence>
+            <xs:element name="attendances" type="attendanceType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="courseType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="courseName" type="xs:string"/>
+            <xs:element name="credit" type="xs:decimal"/>
+            <xs:element name="onlineCourses" type="onlineCoursesType"/>
+            <xs:element name="onsiteCourses" type="onsiteCoursesType"/>
+            <xs:element name="attendances" type="attendancesType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Define the main element for course -->
+    <xs:element name="course" type="courseType"/>
+</xs:schema>

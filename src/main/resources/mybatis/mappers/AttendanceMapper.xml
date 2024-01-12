@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.laba.persistence.courses.IAttendanceDAO">
+
+    <resultMap id="attendanceResultMap" type="com.solvd.laba.domain.courses.info.Attendance">
+        <id property="id" column="attendance_id"/>
+        <result property="status" column="attendance_status"/>
+        <result property="date" column="attendance_date"/>
+    </resultMap>
+
+    <select id="getById" resultMap="attendanceResultMap">
+        SELECT id AS attendance_id, status AS attendance_status, date AS attendance_date
+        FROM attendance
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="attendanceResultMap">
+        SELECT id AS attendance_id, status AS attendance_status, date AS attendance_date
+        FROM attendance
+    </select>
+
+    <insert id="create" parameterType="com.solvd.laba.domain.courses.info.Attendance">
+        INSERT INTO attendance (status, date) VALUES (#{status}, #{date})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.laba.domain.courses.info.Attendance">
+        UPDATE attendance SET status = #{status}, date = #{date} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM attendance WHERE id = #{id}
+    </delete>
+
+</mapper>
